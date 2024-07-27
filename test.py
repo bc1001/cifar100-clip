@@ -15,10 +15,8 @@ transform = transforms.Compose([
     transforms.Normalize((0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711)),  # CLIP normalization
 ])
 
-train_dataset = torchvision.datasets.CIFAR100(root='./data', train=True, download=True, transform=transform)
 test_dataset = torchvision.datasets.CIFAR100(root='./data', train=False, download=True, transform=transform)
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=2)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False, num_workers=2)
 
 # Load CLIP model
@@ -39,7 +37,6 @@ def extract_features(data_loader):
     return np.concatenate(all_features), np.concatenate(all_labels)
 
 # Extract features from train and test datasets
-train_features, train_labels = extract_features(train_loader)
 test_features, test_labels = extract_features(test_loader)
 
 # Load the saved model, must be paired to your CLIP model
